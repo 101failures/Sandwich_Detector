@@ -1,5 +1,5 @@
 """
-Quick demonstration script for instructor to verify results.
+Quick demonstration script for user to verify results.
 Run this to see the model in action with explanations.
 """
 
@@ -24,7 +24,7 @@ except ImportError:
     print("Note: TensorFlow not loaded - using pre-computed results for demo")
 
 print("="*80)
-print("SANDWICH ATTACK DETECTION - INSTRUCTOR DEMO")
+print("SANDWICH ATTACK DETECTION - DEMO")
 print("="*80)
 print()
 
@@ -230,3 +230,4 @@ print()
 print("="*80)
 print("Thank you for reviewing this project!")
 print("="*80)
+

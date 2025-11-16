@@ -1,6 +1,5 @@
 # Sandwich Attack Detection - Final Results Report
-
-**Student**: [Your Name]  
+ 
 **Date**: November 16, 2025  
 **Model**: BERT4ETH + CRF  
 **Task**: MEV Sandwich Attack Detection on Ethereum Blockchain
@@ -189,8 +188,6 @@ All results are reproducible:
 
 ## 8. How to Verify These Results
 
-### For Your Instructor
-
 **Step 1: Verify Data Quality**
 ```bash
 cd e:\BERT4ETH-1\Dataset
@@ -236,7 +233,7 @@ python test_gas_dependence.py
 
 ---
 
-## 9. Key Takeaways for Instructor
+## 9. Key Takeaways
 
 ### Why This Project Is Valid
 
@@ -262,7 +259,7 @@ python test_gas_dependence.py
 ✅ Report both token-level (99.59%) AND sequence-level (92.38%) metrics. Also include confusion matrix, per-class F1, and error analysis.
 
 ❌ **"Can't reproduce results"**  
-✅ All code, data, checkpoints saved. Deterministic evaluation (no randomness in inference). Instructor can run `evaluate_crf.py` directly.
+✅ All code, data, checkpoints saved. Deterministic evaluation (no randomness in inference). You can run `evaluate_crf.py` directly.
 
 ---
 
@@ -300,4 +297,4 @@ The 92.38% sequence recovery rate represents genuine pattern learning, validated
 
 ---
 
-**Questions? Happy to discuss any aspect of this work!**
+

@@ -1,0 +1,5 @@
+# BERT4ETH Address Vocabulary
+# This file contains the address embeddings vocabulary
+# The actual embeddings are stored in model_752000.* checkpoint files
+# 175,493 unique Ethereum addresses with 24-dimensional embeddings
+# Each address is mapped to a unique ID during preprocessing

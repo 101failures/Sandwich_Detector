@@ -1,7 +1,7 @@
-# BERT4ETH Sandwich Attack Detection - Final Model (Run 2)
+# BERT4ETH-based Sandwich Attack Detection
 
 This folder contains all the code, model weights, embeddings, and data used for the final BERT4ETH-based sandwich attack detection model (Run 2 - 97.03% accuracy).
-
+Note: large files (like the BERT checkpoint and our training dataset) are available upon request, as they are too large to be uploaded in this repository.
 ## Contents
 
 ### Core Model Files
@@ -38,14 +38,14 @@ This folder contains all the code, model weights, embeddings, and data used for 
 - `tfrecords/sandwich_val.tfrecord.sandwich_detector` - Preprocessed validation data
 - `tfrecords/sandwich_test.tfrecord.sandwich_detector` - Preprocessed test data
 
-### Trained Model (Run 2)
+### Trained Model
 - `trained_model_run2/` - Best performing model checkpoint
   - Model weights achieving 97.03% test accuracy
   - Checkpoint files for inference
   - Training logs and validation metrics
 
 ### Test Results
-- `test_predictions/` - Run 2 test set predictions
+- `test_predictions/` - Test set predictions
   - Predictions CSV with all 38,012 test samples
   - True labels and predicted probabilities
 
@@ -141,7 +141,7 @@ python calculate_metrics_with_validation.py \
 - Validation: 38,011 (15%)
 - Test: 38,012 (15%)
 
-## Performance (Run 2)
+## Performance
 
 **Overall Metrics:**
 - Test Accuracy: 97.03%

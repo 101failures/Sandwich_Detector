@@ -22,13 +22,10 @@ import random
 import sys
 import os
 
-# Add parent directory to path to import modules
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'Model'))
-
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
 
-from vocab import FreqVocab
+from sandwich_detector.vocab import FreqVocab
 import pickle as pkl
 import time
 

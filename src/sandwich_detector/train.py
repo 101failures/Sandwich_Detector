@@ -8,12 +8,11 @@ from __future__ import print_function
 
 import sys
 import os
-sys.path.append(os.path.join(os.path.dirname(__file__), '..', '..', 'Model'))
 
 import tensorflow.compat.v1 as tf
 tf.disable_v2_behavior()
-import modeling
-import optimization
+from sandwich_detector import modeling
+from sandwich_detector import optimization
 import pickle as pkl
 import os
 import json

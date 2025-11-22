@@ -159,10 +159,25 @@ python -m sandwich_detector.train \
 
 ```bash
 Python >= 3.9
-TensorFlow == 2.9.2 (GPU-enabled)
+TensorFlow >= 2.9.2 (GPU-enabled recommended)
 numpy >= 1.23.5
 pandas >= 1.5.3
 scikit-learn >= 1.2.2
+```
+
+## Development
+
+To contribute or run tests locally:
+
+```bash
+# Install in development mode
+pip install -e ".[dev]"
+
+# Run tests
+pytest tests/ -v
+
+# Run linting
+flake8 src/sandwich_detector --count --select=E9,F63,F7,F82 --show-source --statistics
 ```
 
 ## Hardware Requirements

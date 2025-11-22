@@ -1,0 +1,7 @@
+include README.md
+include QUICKSTART.md
+include LICENSE
+include requirements.txt
+recursive-include src/sandwich_detector *.py
+recursive-exclude * __pycache__
+recursive-exclude * *.py[co]

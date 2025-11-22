@@ -54,14 +54,20 @@ Final_Model_Run2/
 
 ## 🏃 Three Ways to Use This Model
 
+**Note:** The repository has been reorganized into a standard Python package structure. Install the package first:
+
+```bash
+pip install -e .
+```
+
 ### Option 1: Use Pretrained Model (Fastest)
 ```bash
+# Note: Large files (pretrained models) are available by request
 # Run predictions on test set using trained Run 2 model
-python run_sandwich_detection.py \
+python -m sandwich_detector.train \
   --do_predict=True \
   --test_file=./tfrecords/sandwich_test.tfrecord.sandwich_detector \
   --vocab_file=./bert_embeddings/vocab.txt \
-  --bert_config_file=./bert_config.json \
   --init_checkpoint=./trained_model_run2/model_final \
   --output_dir=./my_predictions
 
@@ -70,16 +76,19 @@ python run_sandwich_detection.py \
 
 ### Option 2: Retrain from BERT Embeddings
 ```bash
+# Note: Large files (BERT embeddings, TFRecords) are available by request
 # Train new model using pretrained BERT embeddings
-python train_with_validation.py \
+python -m sandwich_detector.train \
   --data_dir=./tfrecords \
   --vocab_file=./bert_embeddings/vocab.txt \
-  --bert_config_file=./bert_config.json \
   --init_checkpoint=./bert_embeddings/model_752000 \
   --output_dir=./my_training \
   --batch_size=32 \
   --num_train_epochs=10 \
   --learning_rate=5e-5
+
+# Or use the wrapper script
+./scripts/train.sh --data_dir=./tfrecords --output_dir=./my_training
 
 # Expected: ~35 minutes training, ~97% accuracy
 ```
@@ -87,14 +96,14 @@ python train_with_validation.py \
 ### Option 3: Process New Data
 ```bash
 # Step 1: Convert your CSV to TFRecords
-python gen_sandwich_data.py \
+python -m sandwich_detector.gen_sandwich_data \
   --data_path=your_new_data.csv \
   --output_dir=./new_tfrecords \
   --vocab_filename=./bert_embeddings/vocab.txt \
   --max_seq_length=100
 
 # Step 2: Train on your data
-python train_with_validation.py \
+python -m sandwich_detector.train \
   --data_dir=./new_tfrecords \
   --init_checkpoint=./bert_embeddings/model_752000 \
   --output_dir=./new_model \
@@ -149,14 +158,19 @@ pip install scikit-learn==1.2.2
 
 ## 🔍 What Each File Does
 
-### Core Scripts
+### Core Package (`src/sandwich_detector/`)
 - **`modeling.py`** - BERT4ETH model architecture (transformer, attention, classifier)
 - **`optimization.py`** - Adam optimizer with warmup and weight decay
-- **`train_with_validation.py`** - ⭐ MAIN training script with validation monitoring
-- **`run_sandwich_detection.py`** - Training/inference (alternative script)
+- **`train.py`** - ⭐ MAIN training script with validation monitoring
 - **`gen_sandwich_data.py`** - Converts CSV to TFRecord format
-- **`calculate_metrics_with_validation.py`** - Computes detailed metrics
 - **`vocab.py`** - Address vocabulary management
+
+### Scripts
+- **`scripts/train.sh`** - Shell wrapper to run training
+- **`scripts/train.py`** - Python wrapper to run training
+
+### Tests
+- **`tests/test_imports.py`** - Package import validation tests
 
 ### Key Data Files
 - **CSV files** - Original transaction data (9 columns: addresses, value, gas, etc.)
@@ -169,25 +183,26 @@ pip install scikit-learn==1.2.2
 ## ⚡ Quick Commands
 
 ```bash
-# 1. Verify files exist
-ls -lh
+# 0. Install the package
+pip install -e .
 
-# 2. Check GPU availability
+# 1. Verify installation
+python -c "import sandwich_detector; print('Version:', sandwich_detector.__version__)"
+
+# 2. Check GPU availability (if TensorFlow installed)
 python -c "import tensorflow as tf; print(tf.config.list_physical_devices('GPU'))"
 
-# 3. Run inference on test set
-python run_sandwich_detection.py --do_predict=True \
-  --test_file=./tfrecords/sandwich_test.tfrecord.sandwich_detector \
-  --init_checkpoint=./trained_model_run2/model_final \
-  --output_dir=./predictions
+# 3. Run training (requires large files - available by request)
+python -m sandwich_detector.train \
+  --data_dir=./tfrecords \
+  --output_dir=./output \
+  --batch_size=32
 
-# 4. Calculate metrics
-python calculate_metrics_with_validation.py \
-  --predictions_file=./predictions/test_results.csv \
-  --labels_file=./test.csv
+# 4. Run tests
+pytest tests/ -v
 
-# 5. View training logs
-cat trained_model_run2/training_summary.json
+# 5. View training logs (if training output exists)
+cat output/training_summary.json
 ```
 
 ---

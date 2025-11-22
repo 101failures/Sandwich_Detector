@@ -1,6 +1,6 @@
 # BERT4ETH Sandwich Attack Detection - Final Model (Run 2)
 
-This folder contains all the code, model weights, embeddings, and data used for the final BERT4ETH sandwich attack detection model (Run 2 - 97.03% accuracy).
+This folder contains all the code, model weights, embeddings, and data used for the final BERT4ETH-based sandwich attack detection model (Run 2 - 97.03% accuracy).
 
 ## Contents
 
@@ -199,6 +199,3 @@ Original BERT4ETH: https://github.com/git-disl/BERT4ETH
 - Model checkpoint files (.ckpt) contain the trained weights
 - Random seed fixed at 42 for reproducibility
 
-## Support
-
-For questions or issues, refer to the main repository documentation or contact the project team.

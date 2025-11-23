@@ -1,0 +1,12 @@
+# Core dependencies
+# Note: TensorFlow 2.9.2 is required for full functionality but may not be available on all platforms
+# For testing purposes, a newer version can be used with compatibility mode
+tensorflow>=2.9.2
+numpy>=1.23.5
+pandas>=1.5.3
+scikit-learn>=1.2.2
+tqdm
+
+# Development dependencies
+pytest>=7.0.0
+flake8>=5.0.0

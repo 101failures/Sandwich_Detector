@@ -49,24 +49,41 @@ This folder contains all the code, model weights, embeddings, and data used for 
   - Predictions CSV with all 38,012 test samples
   - True labels and predicted probabilities
 
+## Installation
+
+```bash
+# Install the package in development mode
+pip install -e .
+```
+
 ## How to Use
 
-### 1. Data Preparation
+### 1. Using as a Python Package
+
+```python
+# Import the package components
+from sandwich_detector import BertConfig, BertModel, FreqVocab
+
+# Use in your code
+config = BertConfig(vocab_size=175493)
+```
+
+### 2. Data Preparation
 
 ```bash
 # Generate TFRecord files from CSV
-python gen_sandwich_data.py \
+python -m sandwich_detector.gen_sandwich_data \
   --data_path=sandwich_dataset_final.csv \
   --output_dir=./tfrecords \
   --vocab_filename=./bert_embeddings/vocab.txt \
   --max_seq_length=100
 ```
 
-### 2. Training
+### 3. Training
 
 ```bash
-# Train BERT4ETH model
-python train_with_validation.py \
+# Train BERT4ETH model using the module
+python -m sandwich_detector.train \
   --train_file=./tfrecords/train.tfrecord \
   --val_file=./tfrecords/val.tfrecord \
   --test_file=./tfrecords/test.tfrecord \
@@ -76,28 +93,12 @@ python train_with_validation.py \
   --num_train_epochs=10 \
   --batch_size=32 \
   --learning_rate=5e-5
+
+# Or use the wrapper script
+./scripts/train.sh --output_dir=./output --data_dir=./tfrecords
 ```
 
-### 3. Inference
-
-```bash
-# Run predictions on test set
-python run_sandwich_detection.py \
-  --do_predict=True \
-  --test_file=./tfrecords/test.tfrecord \
-  --vocab_filename=./bert_embeddings/vocab.txt \
-  --init_checkpoint=./trained_model/model.ckpt \
-  --output_dir=./predictions
-```
-
-### 4. Calculate Metrics
-
-```bash
-# Calculate detailed metrics
-python calculate_metrics_with_validation.py \
-  --predictions_file=./predictions/test_results.csv \
-  --labels_file=./tfrecords/test_labels.csv
-```
+**Note:** Large files (pretrained embeddings, TFRecord files, trained models) are not included in this repository due to size constraints. These files are available by request.
 
 ## Model Architecture
 
@@ -158,10 +159,25 @@ python calculate_metrics_with_validation.py \
 
 ```bash
 Python >= 3.9
-TensorFlow == 2.9.2 (GPU-enabled)
+TensorFlow >= 2.9.2 (GPU-enabled recommended)
 numpy >= 1.23.5
 pandas >= 1.5.3
 scikit-learn >= 1.2.2
+```
+
+## Development
+
+To contribute or run tests locally:
+
+```bash
+# Install in development mode
+pip install -e ".[dev]"
+
+# Run tests
+pytest tests/ -v
+
+# Run linting
+flake8 src/sandwich_detector --count --select=E9,F63,F7,F82 --show-source --statistics
 ```
 
 ## Hardware Requirements
